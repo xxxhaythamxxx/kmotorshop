@@ -1,0 +1,61 @@
+{% extends "spareapp/base.html" %}
+
+{% block title %} Kmotorshop.com{% endblock %}
+
+{% block content %}
+
+<div class="resultadoBusqueda">
+<div class="migajas color-soft color-hard p-2">Spare code: 00 </div>
+<form method="POST" action="">
+    {% csrf_token %}
+    <div class="options my-2 color p-3">
+        <div class="row align-items-center">
+            <div class="col-3">
+                <input class="filter form-control p-1" type="text" id="myInput" placeholder="Filter">
+            </div>
+            <div class="col-9">
+                <div class="d-flex justify-content-end">
+                    <button class="toCart btn btn-primary" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart3 text-white" viewBox="0 0 16 16">
+                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+<table id="invoice" class="invoice ">
+    <thead>
+        <tr class="trsup color text-white">
+            <th>Photo</th>
+            <th>Code</th>
+            <th>Brand</th>
+            <th>Type</th>
+            <th>Car</th>
+            <th><input class="check" type="checkbox" onClick="toggle(this,'toAdd')"/></th>
+        </tr>
+    </thead>
+    <tbody id="myTable">
+    <tr>
+        <td><a href=""><div style="background-image: url('/media/{{br.spare_photo}}');" class="photo"></div></a></div></td>
+        <td><a href="">Valores</a></td>
+        <td><a href="">Valores</a></td>
+        <td><a href="">Valores</a></td>
+        <td><a href="">Valoresl</a></td>
+        <td><input class="check" type="checkbox" name="toAdd" value="{{br.id}}"></td>
+    </tr>
+    <tr>
+        <td><a href=""><div style="background-image: url('/media/{{br.spare_photo}}');" class="photo"></div></a></div></td>
+        <td><a href="">Valores</a></td>
+        <td><a href="">Valores</a></td>
+        <td><a href="">Valores</a></td>
+        <td><a href="">Valoresl</a></td>
+        <td><input class="check" type="checkbox" name="toAdd" value="{{br.id}}"></td>
+    </tr>
+    </tbody>
+</table>
+</form>
+</div>
+{% endblock %}
+
+
