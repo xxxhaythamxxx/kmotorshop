@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'spareapp',
+    'smart_selects',
     # 'crispy_forms',
 ]
 
@@ -74,6 +75,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Spareparts.wsgi.application'
 
+USE_DJANGO_JQUERY = True
+
+# JQUERY_URL = True
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -145,3 +149,4 @@ MESSAGE_TAGS = {
     message_constants.WARNING: 'warning',
     message_constants.ERROR: 'danger',
 }
+
