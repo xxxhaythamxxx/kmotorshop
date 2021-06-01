@@ -5,7 +5,7 @@ from smart_selects.db_fields import ChainedManyToManyField
 # Create your models here.
 class car(models.Model):
     car_manufacturer=models.CharField(max_length=20, verbose_name="Manufacturer")    #Ejemplo: Audi
-    car_model=models.CharField(max_length=40, verbose_name="Model", unique=True)           #Ejemplo: 100 C1 Coupe (817)
+    car_model=models.CharField(max_length=100, verbose_name="Model", unique=True)           #Ejemplo: 100 C1 Coupe (817)
     car_from=models.DateField(verbose_name="From")      #Ejemplo: 11/2015
     car_to=models.DateField(verbose_name="To")          #Ejemplo: 11/2018
     transmission=models.CharField(max_length=10)        #Ejemplo: ATM, MTM (Automatic, Manual)
@@ -16,7 +16,7 @@ class car(models.Model):
 class engine(models.Model):
     car_engine_info=models.ManyToManyField(car)
     engine_l=models.CharField(max_length=10, verbose_name="Litre")             #Ejemplo: 1.8 D
-    engine_ide=models.CharField(max_length=15, verbose_name="Code")          #Ejemplo: 1GRFE
+    engine_ide=models.CharField(max_length=80, verbose_name="Code")          #Ejemplo: 1GRFE
     engine_type=models.CharField(max_length=15, verbose_name="Type")         #Ejemplo: Diesel, Petrol
     engine_cylinder=models.IntegerField(verbose_name="Cylinder (ccm)")               #Ejemplo: 1588 ccm
     engine_pistons=models.IntegerField(verbose_name="Pistons")                #Ejemplo: 4 pistons
@@ -28,7 +28,7 @@ class engine(models.Model):
     
 
 class category(models.Model):
-    category=models.CharField(max_length=20, verbose_name="Category")     #Ejemplo: Filter
+    category=models.CharField(max_length=40, verbose_name="Category")     #Ejemplo: Filter
 
     def __str__(self):
         return '%s' %(self.category)

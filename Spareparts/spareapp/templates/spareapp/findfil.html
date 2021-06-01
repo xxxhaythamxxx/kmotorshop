@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="resultadoBusqueda">
-<div class="migajas color-soft color-hard p-2">Spare code: {{mig}} </div>
+<div class="migajas color-soft color-hard p-2">Manufacturer: {{spare.0.car_info.all.0.car_manufacturer}} - Car model: {{spare.0.car_info.all.0.car_model}} - Engine: {{engcomp.0}}</div>
 <form method="POST" action="">
     {% csrf_token %}
     <div class="options my-2">

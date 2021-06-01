@@ -38,9 +38,12 @@
     color:black;
 }
 
-.category-content a {
+.category-content a,.conteni a {
     text-decoration: none;
     color: rgb(15, 1, 1);
+}
+.conteni li {
+    list-style: none;
 }
 .color-hard {
     color: rgb(15, 1, 1);
@@ -52,4 +55,12 @@
 .invoice {
     width: 100%;
     text-align: center;
+}
+.photo {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 80px;
+    height: 80px;
+    margin: auto;
 }

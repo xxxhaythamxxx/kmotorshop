@@ -5,25 +5,15 @@
 {% block content %}
 
 <div class="resultadoBusqueda">
-<div class="migajas color-soft color-hard p-2">Spare code: {{mig}} </div>
+<div class="migajas color-soft color-hard p-2">Spare name: {{mig}} </div>
 <form method="POST" action="">
     {% csrf_token %}
-    <div class="options my-2">
+    <div class="options my-2 color p-3">
         <div class="row align-items-center">
             <div class="col-3">
                 <input class="filter form-control p-1" type="text" id="myInput" placeholder="Filter">
             </div>
-            <div class="col-1">
-                <div class="btn btn-success">Default</div>
-            </div>
-            <div class="col-7">
-                <div class="d-flex justify-content-end">
-                    <div class="btn btn-success mx-1">View</div>
-                    <div class="btn btn-success mx-1">PDF</div>
-                    <div class="btn btn-success mx-1">Excel</div>
-                </div>
-            </div>
-            <div class="col-1">
+            <div class="col-9">
                 <div class="d-flex justify-content-end">
                     <button class="toCart btn btn-primary" type="submit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart3 text-white" viewBox="0 0 16 16">
@@ -52,7 +42,7 @@
             <td><a href="{% url 'sparedetails' br.spare_code %}">{{br.spare_code}}</a></td>
             <td><a href="{% url 'brand' br.spare_brand %}">{{br.spare_brand}}</a></td>
             <td><a href="{% url 'name' br.spare_name %}">{{br.spare_name}}</a></td>
-            <td><a href="{% url 'manuf' br.car_info.all.0.car_manufacturer %}">{{br.car_info.all.0.car_manufacturer}}</a></td>
+            <td><a href="{% url 'manuf' br.car_info__car_manufacturer %}">{{br.car_info__car_manufacturer}}</a></td>
             <td><input class="check" type="checkbox" name="toAdd" value="{{br.id}}"></td>
         </tr>
         {% endfor %}

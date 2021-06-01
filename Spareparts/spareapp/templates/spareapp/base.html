@@ -10,6 +10,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <!-- No recuerdo -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- Para que funcione la barra lateral izquierda -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     
 </head>
 
@@ -20,7 +22,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                  <a class="navbar-brand text-white" href="#">Kmotorshop.com</a>
+                  <a class="navbar-brand text-white" href="/">Kmotorshop.com</a>
                   
                   <div class="d-flex">
                     <ul class="navbar-nav mr-auto">
@@ -44,7 +46,7 @@
             <div class="d-flex justify-content-center align-items-center">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <input type="text" class="form-control minput p-1" placeholder="Search for spare part code...">
+                        <input name="search" type="text" class="form-control minput p-1" placeholder="Search for spare part code...">
                     </div>
                     <button type="submit" class="btn btn-primary mt-3">Search</button>
                 </div>
@@ -57,19 +59,15 @@
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-3">
                 <div class="color">
-                    <form class="form-group p-3" action="">
+                    <form class="form-group p-3" action="" method="GET">
                         <label class="text-white mb-3" for="">Select vehicle:</label>
                         <!-- Manufacturer -->
                         <div class="my-2" class="">
                             <select class="form-control p-1" name="car_id" id="car_id" required>
                                 <option class="" value="">1. Choose manufacturer...</option>
-                                <!-- {% for only in onlyManufCars %}
-                                    <option class="" value="{{only.car_manufacturer}}">{{only.car_manufacturer}}</option> -->
-                                    <option class="" value="">Valor 1</option>
-                                    <option class="" value="">Valor 2</option>
-                                    <option class="" value="">Valor 3</option>
-                                    <option class="" value="">Valor 4</option>
-                                <!-- {% endfor %} -->
+                                {% for only in onlyManufCars %}
+                                    <option class="" value="{{only.car_manufacturer}}">{{only.car_manufacturer}}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <!-- Car model -->
@@ -103,36 +101,24 @@
                         <label class="text-white" for="">Category:</label>
                             <div class="list-category mt-4">
                                 <div class="accordion" id="accordionExample">
+                                    {% for category in allCategories %}
                                     <div class="accordion-item">
-                                      <h2 class="accordion-header" id="headingOne">
-                                        <button class="accordion-button color text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                          Categoria 1
+                                      <h2 class="accordion-header" id="heading{{category.id}}">
+                                        <button class="accordion-button color text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{category.id}}" aria-expanded="true" aria-controls="collapse{{category.id}}">
+                                          {{category.category}}
                                         </button>
-                                      </h2>
-                                      <div id="collapseOne" class="accordion-collapse collapse category-content color-soft" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <a class="" href="">Subcategoria 1-1</a>
-                                        </div>
-                                        <div class="accordion-body">
-                                            <a class="" href="">Subcategoria 1-2</a>
-                                        </div>
-                                        <div class="accordion-body">
-                                            <a class="" href="">Subcategoria 1-3</a>
-                                        </div>
+                                        </h2>
+                                        <div id="collapse{{category.id}}" class="accordion-collapse collapse category-content color-soft" aria-labelledby="heading{{category.id}}" data-bs-parent="#accordionExample">
+                                        {% for sub in allSpares %}
+                                        {% if category.id == sub.spare_category %}
+                                            <div class="accordion-body">
+                                                <a class="" href="{% url 'name' sub.spare_name %}">{{sub.spare_name}}</a>
+                                            </div>
+                                        {% endif %}
+                                        {% endfor %}
                                       </div>
                                     </div>
-                                    <div class="accordion-item">
-                                        <h2 class="accordion-header" id="headingTwo">
-                                          <button class="accordion-button collapsed color text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
-                                            Categoria 2
-                                          </button>
-                                        </h2>
-                                        <div id="collapse2" class="accordion-collapse collapse category-content color-soft" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                          <div class="accordion-body">
-                                            <a href="">Subcategoria 2-1</a>
-                                          </div>
-                                        </div>
-                                      </div>
+                                    {% endfor %}
                                 </div>
                             </div> 
                         </div>
@@ -148,77 +134,17 @@
             
         </div>
     </div>
-<!-- ----------------------------------------------------------------------------------------------------- -->
-    <!-- <div class="lateral">
-        <aside>
-            <form action="" method="GET">
-            <label for="">Select vehicle:</label>
-            <div class="sep">
-                <select name="car_id" id="car_id" required>
-                    <option value="">Choose manufacturer...</option>
-                    {% for only in onlyManufCars %}
-                        <option value="{{only.car_manufacturer}}">{{only.car_manufacturer}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="sep">
-                <select name="car_model_id" id="car_model_id" disabled required>
-                    <option value="">Choose model...</option>
-                    {% for all in allCars %}
-                        <option value="{{all.car_model}}" data-carro="{{all.car_manufacturer}}">{{all.car_model}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="sep">
-                
-                <select name="engine_id" id="engine_id" disabled required>
-                    <option value="">Choose engine...</option>
-                    {% for all in allEngines %}
-                        {% for p in all.car_engine_info.all %}
-                            <option value="{{all.engine_ide}}" data-carro="{{p.car_model}}">{{all}}</option>
-                        {% endfor %}
-                    {% endfor %}
-                </select>
-            </div>
-            <button type="submit" value="filtrar">Buscar</button>
-            </form>       
-        </aside>
-        <div class="filterExtra">
-            <label for="">Category:</label>
-                <div class="PDFoptions">
-                    {% for a in allSpares %}
-                        <li><a href="{% url 'name' a.spare_name %}">{{a.spare_name}}</a></li>
-                        <hr color="rgba(136,12,12,1)">
-                    {% endfor %}
-                </div> 
-            </div>
-        {% if spare or brand_id or carrito.cart %}
-        <div class="filterExtra">
-        <label for="">Table options:</label>
-            <div class="PDFoptions">
-                <button onClick="viewPDF()">Preview</button>
-                <button onClick="generatePDF()">Download</button>
-                <button id="downloadexcel">Excel</button>
-            </div> 
-        </div>
-        {% endif %} -->
-
-<!-- ----------------------------------------------------------------------------------------------------- -->
-
-
-
-
-
-    
     
     <!-- Código para usar Boostrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 
-    <!-- Para usar icons de bootstrap -->
-    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
-        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-    </svg> -->
+    <!-- Para usar mis Javascript -->
+    <script type="text/javascript" src="{% static 'spareapp/script.js' %}"></script>
+
+    <!-- Creo que para Ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </body>
 </html>

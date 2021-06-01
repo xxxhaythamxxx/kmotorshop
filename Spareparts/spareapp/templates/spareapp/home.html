@@ -4,11 +4,15 @@
 
 {% block content %}
 
-<p class="">Hola mundo</p>
-<script
-  src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</body>
+<div class="resultadoBusqueda">
+    <div class="conten">
+        <p class="text-white color p-2">Car brands</p>
+        <div style="margin-left: 10px;" class="conteni color-hard">
+        {% for car in manu %}
+            <li><a href="{% url 'manuf' car %}">{{car}}</a></li>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
 {% endblock %}
