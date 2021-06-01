@@ -13,8 +13,10 @@ urlpatterns = [
     path("name/<str:val>",views.name,name="name"),
     path("manuf/<str:val>",views.manuf,name="manuf"),
     path("allmanu/<str:val>",views.allmanu,name="allmanu"),
+    path("allmodel/<str:val>",views.allmodel,name="allmodel"),
     path("model/<str:val>",views.model,name="model"),
-
+    path("engine/<str:val>",views.enginel,name="engine"),
+    path('detail',views.detail,name='detail'),
 ]
 
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

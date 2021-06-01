@@ -26,20 +26,20 @@ dic=same().copy()
 # Código para saber si usa el input o el filtro
 def selectf(request):
 
-    # if request.method=="POST":
-    #     list = request.POST.getlist('toAdd')
-    #     delist = request.POST.getlist("toDel")
-    #     if delist:
-    #         carrito = Cart(request)
-    #         for a in delist:                
-    #             spare_part = get_object_or_404(spare, id = a)
-    #             carrito.remove(spare_part)
-    #     if list:
-    #         carrito = Cart(request)
-    #         for a in list:                
-    #             spare_part = get_object_or_404(spare, id = a)
-    #             carrito.add(spare_part)
-    #     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    if request.method=="POST":
+        list = request.POST.getlist('toAdd')
+        delist = request.POST.getlist("toDel")
+        if delist:
+            carrito = Cart(request)
+            for a in delist:                
+                spare_part = get_object_or_404(spare, id = a)
+                carrito.remove(spare_part)
+        if list:
+            carrito = Cart(request)
+            for a in list:                
+                spare_part = get_object_or_404(spare, id = a)
+                carrito.add(spare_part)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
     if request.method=="GET":
         search=request.GET.get("engine_id")
@@ -60,7 +60,7 @@ def selectf(request):
             valor=request.GET.get("search")
             if valor:
                 # Compara el codigoRepuesto con valor
-                comp=spare.objects.filter(spare_code__icontains=valor).order_by("id") 
+                comp=spare.objects.filter(spare_code__icontains=valor).order_by("id").distinct() 
                 dic.update({"spare":comp,"mig":valor})
                 return render(request,"spareapp/find.html",dic)
             else:
@@ -69,20 +69,20 @@ def selectf(request):
 
 def home(request):
 
-    # if request.method=="POST":
-    #     list = request.POST.getlist('toAdd')
-    #     delist = request.POST.getlist("toDel")
-    #     if delist:
-    #         carrito = Cart(request)
-    #         for a in delist:                
-    #             spare_part = get_object_or_404(spare, id = a)
-    #             carrito.remove(spare_part)
-    #     if list:
-    #         carrito = Cart(request)
-    #         for a in list:                
-    #             spare_part = get_object_or_404(spare, id = a)
-    #             carrito.add(spare_part)
-    #     return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    if request.method=="POST":
+        list = request.POST.getlist('toAdd')
+        delist = request.POST.getlist("toDel")
+        if delist:
+            carrito = Cart(request)
+            for a in delist:                
+                spare_part = get_object_or_404(spare, id = a)
+                carrito.remove(spare_part)
+        if list:
+            carrito = Cart(request)
+            for a in list:                
+                spare_part = get_object_or_404(spare, id = a)
+                carrito.add(spare_part)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
     if request.method=="GET":
 
@@ -102,7 +102,14 @@ def find(request):
     return render(request,"spareapp/find.html")
 
 def sparedetails(request,val):
-    return render(request,"spareapp/sparedetails.html")
+
+    if selectf(request)==False:
+        pr=spare.objects.filter(spare_code__icontains=val)
+        dic.update({"spare":pr})
+        return render(request,"spareapp/sparedetails.html",dic)
+    else:
+        return selectf(request)
+    
 
 def brand(request,val):
     if selectf(request)==False:
@@ -161,5 +168,24 @@ def model(request,val):
         pr=engine.objects.filter(car_engine_info__car_model__icontains=val)
         dic.update({"engine":pr,"mig":val})
         return render(request,"spareapp/model.html",dic)
+    else:
+        return selectf(request)
+
+def enginel(request,val):
+
+    if selectf(request)==False:
+        pr=spare.objects.filter(engine_info__engine_ide__icontains=val)
+        dic.update({"spare":pr,"test":val,"mig":val})
+        return render(request,"spareapp/engine.html",dic)
+    else:
+        return selectf(request)
+
+def detail(request):
+
+    if selectf(request)==False:
+        spares = spare.objects.all()
+        carrito = Cart(request)
+        dic.update({'carrito': carrito,'spare':spares})
+        return render(request, 'spareapp/detail.html', dic)
     else:
         return selectf(request)

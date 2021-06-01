@@ -5,15 +5,16 @@
 {% block content %}
 
 <div class="resultadoBusqueda">
-<div class="migajas color-soft color-hard p-2">Spare code: {{mig}} </div>
+<div class="migajas color-soft color-hard p-2">Engine code: {{mig}} </div>
 <form method="POST" action="">
-{% csrf_token %}
-{% include "spareapp/superior.html" %}
+    {% csrf_token %}
+    {% include "spareapp/superior.html" %}
 <table id="invoice" class="invoice ">
     <thead>
         <tr class="trsup color text-white">
             <th>Photo</th>
-            <th>Code</th>
+            <th>Spare code</th>
+            <th>Engine code</th>
             <th>Brand</th>
             <th>Type</th>
             <th>Car</th>
@@ -24,11 +25,12 @@
         {% for br in spare %}
         <tr class="">
             <td><a href="{% url 'sparedetails' br.spare_code %}"><div style="background-image: url('/media/{{br.spare_photo}}');" class="photo"></div></a></div></td>
-            <td><a href="{% url 'sparedetails' br.spare_code %}">{{br.spare_code}}</a></td>
-            <td><a href="{% url 'brand' br.spare_brand %}">{{br.spare_brand}}</a></td>
-            <td><a href="{% url 'name' br.spare_name %}">{{br.spare_name}}</a></td>
-            <td><a href="{% url 'manuf' br.car_info.all.0.car_manufacturer %}">{{br.car_info.all.0.car_manufacturer}}</a></td>
-            <td><input class="check" type="checkbox" name="toAdd" value="{{br.id}}"></td>
+        <td><a href="{% url 'sparedetails' br.spare_code %}">{{br.spare_code}}</a></td>
+        <td><a href="{% url 'engine' test %}">{{test}}</a></td>
+        <td><a href="{% url 'brand' br.spare_brand %}">{{br.spare_brand}}</a></td>
+        <td><a href="{% url 'name' br.spare_name %}">{{br.spare_name}}</a></td>
+        <td><a href="{% url 'manuf' br.car_info.all.0.car_manufacturer %}">{{br.car_info.all.0.car_manufacturer}}</a></td>
+        <td><input class="check" type="checkbox" name="toAdd" value="{{br.id}}"></td>
         </tr>
         {% endfor %}
     </tbody>

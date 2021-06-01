@@ -64,3 +64,13 @@
     height: 80px;
     margin: auto;
 }
+.mimage {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 300px;
+    height: 300px;
+}
+.radius {
+    border-radius: 3px;
+}
