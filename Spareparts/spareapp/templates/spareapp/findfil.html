@@ -6,9 +6,10 @@
 
 <div class="resultadoBusqueda">
 <div class="migajas color-soft color-hard p-2">Manufacturer: {{spare.0.car_info.all.0.car_manufacturer}} - Car model: {{spare.0.car_info.all.0.car_model}} - {{engcomp.0}}</div>
+{% include "spareapp/superior.html" %}
 <form method="POST" action="">
+    {% include "spareapp/add.html" %}
     {% csrf_token %}
-    {% include "spareapp/superior.html" %}
 <table id="invoice" class="invoice ">
     <thead>
         <tr class="trsup color text-white">

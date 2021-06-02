@@ -104,4 +104,5 @@ document.getElementById("downloadexcel").addEventListener("click",function(){
     $('#invoice tr > *:nth-child(1)').hide();
     var table2excel = new Table2Excel();
     table2excel.export(document.querySelectorAll("#invoice"));
+    location.reload();
 })

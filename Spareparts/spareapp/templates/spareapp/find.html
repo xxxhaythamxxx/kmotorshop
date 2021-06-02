@@ -6,9 +6,11 @@
 
 <div class="resultadoBusqueda">
 <div class="migajas color-soft color-hard p-2">Spare code: {{mig}} </div>
-<form method="POST" action="">
-{% csrf_token %}
+
 {% include "spareapp/superior.html" %}
+<form class="" method="POST" action="">
+    {% include "spareapp/add.html" %}
+    {% csrf_token %}
 <table id="invoice" class="invoice ">
     <thead>
         <tr class="trsup color text-white">
@@ -27,7 +29,11 @@
             <td><a href="{% url 'sparedetails' br.spare_code %}">{{br.spare_code}}</a></td>
             <td><a href="{% url 'brand' br.spare_brand %}">{{br.spare_brand}}</a></td>
             <td><a href="{% url 'name' br.spare_name %}">{{br.spare_name}}</a></td>
+            {% if br.car_info.all %}
             <td><a href="{% url 'manuf' br.car_info.all.0.car_manufacturer %}">{{br.car_info.all.0.car_manufacturer}}</a></td>
+            {% else %}
+            <td><a href="#">None</a></td>
+            {% endif %}
             <td><input class="check" type="checkbox" name="toAdd" value="{{br.id}}"></td>
         </tr>
         {% endfor %}

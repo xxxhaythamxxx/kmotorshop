@@ -74,3 +74,18 @@
 .radius {
     border-radius: 3px;
 }
+.card-body a:hover {
+    text-decoration: none;
+}
+.hover a:hover {
+    text-decoration: none;
+    color: rgb(99, 5, 5);
+}
+.blue-soft a {
+    color: rgb(42, 42, 214);
+    text-decoration: none;
+}
+.blue-soft a:hover {
+    color: rgb(24, 24, 214);
+    text-decoration: none;
+}

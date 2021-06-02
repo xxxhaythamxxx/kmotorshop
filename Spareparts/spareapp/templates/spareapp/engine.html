@@ -6,9 +6,10 @@
 
 <div class="resultadoBusqueda">
 <div class="migajas color-soft color-hard p-2">Engine code: {{mig}} </div>
+{% include "spareapp/superior.html" %}
 <form method="POST" action="">
+    {% include "spareapp/add.html" %}
     {% csrf_token %}
-    {% include "spareapp/superior.html" %}
 <table id="invoice" class="invoice ">
     <thead>
         <tr class="trsup color text-white">

@@ -3,11 +3,7 @@
 {% block title %} Kmotorshop.com{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<script src="https://use.fontawesome.com/2972279885.js"></script>
+
 
 <div id="invoice" class="resultadoBusqueda">
     <div class="row">
@@ -19,59 +15,110 @@
         </div>
         <div class="conteni col-6">
             <div class="color p-1 text-white mt-2 radius" for="">Code</div>
-            <div><a href="">{{spare.0.spare_code}}</a></div>
+            <div class="hover"><a href="">{{spare.0.spare_code}}</a></div>
             <div class="color p-1 text-white mt-2 radius" for="">Brand</div>
-            <div><a href="{% url 'brand' spare.0.spare_brand %}">{{spare.0.spare_brand}}</a></div>
+            <div class="hover"><a href="{% url 'brand' spare.0.spare_brand %}">{{spare.0.spare_brand}}</a></div>
             <div class="color p-1 text-white mt-2 radius" for="">Name</div>
-            <div><a href="{% url 'name' spare.0.spare_name %}">{{spare.0.spare_name}}</a></div>
+            <div class="hover"><a href="{% url 'name' spare.0.spare_name %}">{{spare.0.spare_name}}</a></div>
         </div>
         <div class="col-12">
-
-            <div class="">
-                <div class="panel-group" id="accordion" aria-multiselectable="true">
-                  <div class="panel panel-default">
-                    <div class="panel-heading">
-                      <div class="panel-title color p-2">
-                        <a class="accordion-toggle text-white data-toggle="collapse" href="#shapes" aria-expanded="false">
-                              Cars
-                          </a>
-                        </div>
-                    </div>
-                    <div id="shapes" class="panel-collapse collapse" data-parent="#accordion">
-                      <div class="panel-body">
-                        <ul>
-                          <li>Line</li>
-                          <li>Circle</li>
-                          <li>Rectangle</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-    
+        <!-- Si está ligado a un carro -->
+        {% if spare.0.car_info.all %}
+        <div id="accordion">
+            <div class="card mt-2">
+                <div class="card-header color">
+                    <a class="card-link text-white" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                        Spare part targets
+                    </a>
                 </div>
-            <!-- <div class="accordion" id="accordionExample">
-                {% for sp in onlyManufCars %}
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="heading{{sp.car_manufacturer}}">
-                    <button class="accordion-button color text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{sp.car_manufacturer}}" aria-expanded="true" aria-controls="collapse{{sp.car_manufacturer}}">
-                    {{sp.car_manufacturer}}
-                    </button>
-                    </h2>
-                    <div id="collapse{{sp.car_manufacturer}}" class="accordion-collapse collapse category-content color-soft" aria-labelledby="heading{{sp.car_manufacturer}}" data-bs-parent="#accordionExample">
-                    {% for s in spare %}
-                        {% for a in s.car_info.all %}
-                            {% if sp.car_manufacturer == a.car_manufacturer %}
-                            <div class="accordion-body">
-                                <a class="" href="">{{a.car_model}}</a>
-                            </div>
-                            {% endif %}
+                {% for sp in spare %}
+                <div id="collapseOne" class="collapse">
+                    <div class="card-body">
+                        {% for ob in sp.car_info.all%}
+                          <div><a href="{% url 'model' ob.car_model %}">{{ob.car_manufacturer}} {{ob.car_model}}</a></div>
                         {% endfor %}
-                    {% endfor %}
-                  </div>
+                    </div>
                 </div>
                 {% endfor %}
-            </div> -->
+            </div>
         </div>
+        {% endif %}
+        </div>
+
+        <div class="col-12">
+            <!-- Si está ligado a un repuesto -->
+            {% if spare.0.spare_spare.all %}
+            <div id="accordion">
+                <div class="card mt-2">
+                    <div class="card-header color">
+                        <a class="card-link text-white" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                            Spare part targets
+                        </a>
+                    </div>
+                    {% for sp in spare %}
+                    <div id="collapseTwo" class="collapse">
+                        <div class="card-body">
+                            {% for ob in sp.spare_spare.all %}
+                              <div><a href="{% url 'sparedetails' ob.spare_code %}">{{ob.spare_code}} {{ob.spare_name}}</a></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="col-12">
+            <!-- Si el repuesto tiene medidas -->
+            {% if spare.0.shape %}
+            <div id="accordion">
+                <div class="card mt-2">
+                    <div class="card-header color">
+                        <a class="card-link text-white" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                            Dimensions
+                        </a>
+                    </div>
+                    {% if spare.0.long %}
+                    <div id="collapseThree" class="collapse">
+                        <div class="card-body">
+                              <div><a href="#">Long: {{spare.0.long}}</a></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if spare.0.wide %}
+                    <div id="collapseThree" class="collapse">
+                        <div class="card-body">
+                              <div><a href="#">Wide: {{spare.0.wide}}</a></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if spare.0.high %}
+                    <div id="collapseThree" class="collapse">
+                        <div class="card-body">
+                              <div><a href="#">High: {{spare.0.high}}</a></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if spare.0.diameter %}
+                    <div id="collapseThree" class="collapse">
+                        <div class="card-body">
+                              <div><a href="#">Diameter: {{spare.0.diameter}}</a></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if spare.0.radio %}
+                    <div id="collapseThree" class="collapse">
+                        <div class="card-body">
+                              <div><a href="#">Radio: {{spare.0.radio}}</a></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
     </div>
 </div>
 

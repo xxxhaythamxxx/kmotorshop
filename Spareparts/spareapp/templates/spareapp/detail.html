@@ -5,35 +5,29 @@
 {% block content %}
 
 <div class="resultadoBusqueda">
-<form method="POST" action="">
-    {% csrf_token %}
+
+    
     <div class="options my-2">
         <div class="row align-items-center">
             <div class="col-3">
                 <input class="filter form-control p-1" type="text" id="myInput" placeholder="Filter">
             </div>
             <div class="col-1">
-                <div class="btn btn-success">Default</div>
+                <div id="default" class="btn btn-success">Default</div>
             </div>
-            <div class="col-7">
+            <div class="col-8">
                 <div class="d-flex justify-content-end">
-                    <button class="btn btn-success mx-1" onClick="viewPDF()">View</button>
-                    <button class="btn btn-success mx-1" onClick="generatePDF()">PDF</button>
-                    <button class="btn btn-success mx-1" id="downloadexcel">Excel</button>
+                    <button class="btn btn-success ml-2" onClick="viewPDF()">View</button>
+                    <button class="btn btn-success ml-2" onClick="generatePDF()">PDF</button>
+                    <button class="btn btn-success ml-2" id="downloadexcel">Excel</button>
                 </div>
             </div>
-            <div class="col-1">
-                <div class="d-flex justify-content-end">
-                    <button value="delete" name="delete" class="toCart btn btn-primary" type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
-                            <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z"/>
-                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
+
         </div>
     </div>
+    <form method="POST" action="">
+        {% include "spareapp/delete.html" %}
+        {% csrf_token %}
     <table id="invoice" class="invoice">
         <thead>
             <tr class="trsup color text-white">
@@ -64,19 +58,7 @@
     </table>
 </form>
 </div>
-<script>
-document.getElementById("default").addEventListener("click",function(){
-    $('#invoice tr > *:nth-child(6)').show();
-    $('#invoice tr > *:nth-child(1)').show();
-})
-
-document.getElementById("downloadexcel").addEventListener("click",function(){
-    $('#invoice tr > *:nth-child(6)').hide();
-    $('#invoice tr > *:nth-child(1)').hide();
-    var table2excel = new Table2Excel();
-    table2excel.export(document.querySelectorAll("#invoice"));
-})
-</script>
+{% load static %}
 {% endblock %}
 
 

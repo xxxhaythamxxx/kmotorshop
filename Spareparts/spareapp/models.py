@@ -45,7 +45,7 @@ class spare(models.Model):
     spare_photo=models.ImageField(upload_to="spares", verbose_name="Photo",blank=True,null=True)                           #Será ImageField()
     spare_code=models.CharField(max_length=15, verbose_name="Code", unique=True)          #Ejemplo: 50013073
     spare_brand=models.CharField(max_length=20, verbose_name="Brand")         #Ejemplo: KOLBENSCMIDT
-    spare_name=models.CharField(max_length=20, verbose_name="Name")          #Ejemplo: Oil filter
+    spare_name=models.CharField(max_length=80, verbose_name="Name")          #Ejemplo: Oil filter
     shape=models.CharField(max_length=20, verbose_name="Shape",blank=True,null=True)             #Ejemplo: Rectangular
     long=models.FloatField(verbose_name="Long",blank=True,null=True)
     wide=models.FloatField(verbose_name="Wide",blank=True,null=True)

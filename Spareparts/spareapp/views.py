@@ -104,7 +104,7 @@ def find(request):
 def sparedetails(request,val):
 
     if selectf(request)==False:
-        pr=spare.objects.filter(spare_code__icontains=val)
+        pr=spare.objects.filter(spare_code=val)
         dic.update({"spare":pr})
         return render(request,"spareapp/sparedetails.html",dic)
     else:
