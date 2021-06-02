@@ -89,3 +89,6 @@
     color: rgb(24, 24, 214);
     text-decoration: none;
 }
+.title-size a {
+    font-size: x-large;
+}

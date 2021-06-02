@@ -22,7 +22,10 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                  <a class="navbar-brand text-white" href="/">Kmotorshop.com</a>
+                    <div class="title-size">
+                        <a class="navbar-brand text-white" href="/">Kmotorshop.com</a>
+                    </div>
+                  
                   
                   <div class="d-flex">
                     <ul class="navbar-nav mr-auto">
@@ -46,7 +49,7 @@
             <div class="d-flex justify-content-center align-items-center">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <input name="search" type="text" class="form-control minput p-1" placeholder="Search for spare part code...">
+                        <input name="search" type="text" class="form-control minput" placeholder="Search for spare part code...">
                     </div>
                     <button type="submit" class="btn btn-primary mt-3">Search</button>
                 </div>
@@ -63,7 +66,7 @@
                         <label class="text-white mb-3" for="">Select vehicle:</label>
                         <!-- Manufacturer -->
                         <div class="my-2" class="">
-                            <select class="form-control p-1" name="car_id" id="car_id" required>
+                            <select class="form-control" name="car_id" id="car_id" required>
                                 <option class="" value="">1. Choose manufacturer...</option>
                                 {% for only in onlyManufCars %}
                                     <option class="" value="{{only.car_manufacturer}}">{{only.car_manufacturer}}</option>
@@ -72,7 +75,7 @@
                         </div>
                         <!-- Car model -->
                         <div class="my-2" class="">
-                            <select class="form-control p-1" name="car_model_id" id="car_model_id" disabled required>
+                            <select class="form-control" name="car_model_id" id="car_model_id" disabled required>
                                 <option class="" value="">2. Choose model...</option>
                                 {% for all in allCars %}
                                     <option class="" value="{{all.car_model}}" data-carro="{{all.car_manufacturer}}">{{all.car_model}}</option>
@@ -81,7 +84,7 @@
                         </div>
                         <!-- Engines -->
                         <div class="my-2" class="">
-                            <select class="form-control p-1" name="engine_id" id="engine_id" disabled required>
+                            <select class="form-control" name="engine_id" id="engine_id" disabled required>
                                 <option class="" value="">3. Choose engine...</option>
                                 {% for all in allEngines %}
                                     {% for p in all.car_engine_info.all %}
@@ -100,27 +103,31 @@
                 <div class="">
                     <div class="p-3 color">
                         <label class="text-white" for="">Category:</label>
-                            <div class="list-category mt-4">
-                                <div class="accordion" id="accordionExample">
+                            <div class="list-category mt-3">
+
+
+                                <div class="accordion" id="accordion">
                                     {% for category in allCategories %}
-                                    <div class="accordion-item">
-                                      <h2 class="accordion-header" id="heading{{category.id}}">
-                                        <button class="accordion-button color text-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{category.id}}" aria-expanded="true" aria-controls="collapse{{category.id}}">
-                                          {{category.category}}
-                                        </button>
-                                        </h2>
-                                        <div id="collapse{{category.id}}" class="accordion-collapse collapse category-content" aria-labelledby="heading{{category.id}}" data-bs-parent="#accordionExample">
+                                        <div class="card">
+                                            <div class="card-header color p-2">
+                                                <a class="card-link text-white" data-toggle="collapse" data-parent="#accordion" href="#collapse{{category.id}}">
+                                                    {{category.category}}
+                                                </a>
+                                            </div>
+                                        <div id="collapse{{category.id}}" class="collapse">
                                         {% for sub in allSpares %}
                                         {% if category.id == sub.spare_category %}
-                                            <div class="accordion-body blue-soft">
+                                            <div class="card-body blue-soft p-2">
                                                 <a class="" href="{% url 'name' sub.spare_name %}">{{sub.spare_name}}</a>
                                             </div>
                                         {% endif %}
                                         {% endfor %}
                                       </div>
+                                    
                                     </div>
                                     {% endfor %}
                                 </div>
+
                             </div> 
                         </div>
                 </div>

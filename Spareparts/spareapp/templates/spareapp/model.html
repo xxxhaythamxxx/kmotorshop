@@ -9,7 +9,7 @@
 <form method="POST" action="">
     {% csrf_token %}
 <div class="conteni p-2 my-2">
-    <li><a href="{% url 'allmodel' mig %}">All spares for {{mig}}</a></li>
+    <li class="hover"><a href="{% url 'allmodel' mig %}">All spares for {{mig}}</a></li>
 </div>
 <table id="invoice" class="invoice ">
     <thead>
