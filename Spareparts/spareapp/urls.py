@@ -17,6 +17,8 @@ urlpatterns = [
     path("model/<str:val>",views.model,name="model"),
     path("engine/<str:val>",views.enginel,name="engine"),
     path('detail',views.detail,name='detail'),
+    path('dimensions',views.dimensions,name='dimensions'),
+
 ]
 
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

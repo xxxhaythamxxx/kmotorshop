@@ -106,3 +106,25 @@ document.getElementById("downloadexcel").addEventListener("click",function(){
     table2excel.export(document.querySelectorAll("#invoice"));
     location.reload();
 })
+
+// Para filtrar por dimensiones
+const $spname = $("#spare_name");
+const $spshape = $("#spare_shape");
+const $content = $("#dimensions-content");
+const $long = $("#long");
+
+$spname.change(function(){
+    $spshape.val('');
+    
+    $spshape.prop('disabled', !Boolean($spname.val()));
+    $motor.prop('disabled', !Boolean($spshape.val()));
+    $spshape.find('option[data-carro]').hide();
+    $spshape.find('option[data-carro="' + $spname.val() + '"]').show();
+    
+});
+$spshape.change(function(){
+    $content.hide();
+    if($spshape.val()){
+        $content.show();
+    }
+});
