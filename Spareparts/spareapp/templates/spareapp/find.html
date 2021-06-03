@@ -11,15 +11,15 @@
 <form class="" method="POST" action="">
     {% include "spareapp/add.html" %}
     {% csrf_token %}
-<table id="invoice" class="invoice table table-striped ">
+<table id="invoice" class="invoice  table-striped ">
     <thead class="">
-        <tr class="trsup color text-white">
-            <th>Photo</th>
-            <th>Code</th>
-            <th>Brand</th>
-            <th>Type</th>
-            <th>Car</th>
-            <th><input class="check" type="checkbox" onClick="toggle(this,'toAdd')"/></th>
+        <tr class="color text-white">
+            <th class="trsup color" style="position: sticky;top: 70;">Photo</th>
+            <th class="trsup color" style="position: sticky;top: 70;">Code</th>
+            <th class="trsup color" style="position: sticky;top: 70;">Brand</th>
+            <th class="trsup color" style="position: sticky;top: 70;">Type</th>
+            <th class="trsup color" style="position: sticky;top: 70;">Car</th>
+            <th class="trsup color" style="position: sticky;top: 70;"><input class="check" type="checkbox" onClick="toggle(this,'toAdd')"/></th>
         </tr>
     </thead>
     <tbody id="myTable">
@@ -41,7 +41,6 @@
 </table>
 </form>
 </div>
-
 <script>
 
 var stickyElements = document.getElementsByClassName('sticky-box');
