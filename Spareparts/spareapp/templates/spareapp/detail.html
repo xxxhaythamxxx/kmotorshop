@@ -12,10 +12,22 @@
             <div class="col-3">
                 <input class="filter form-control p-1" type="text" id="myInput" placeholder="Filter">
             </div>
-            <div class="col-1">
+            <div class="col-2">
                 <div id="default" class="btn btn-success">Default</div>
+                <a class="dropdown-toggle btn btn-secondary" aria-expanded="false" data-bs-toggle="dropdown" id="dLabel" data-toggle="dropdown" href="#">Headers</a>
+                    <ul id="headerList" class="color-soft dropdown-menu checkbox-menu allow-focus" role="menu" aria-labelledby="dLabel">            
+                        <li style="margin:auto;text-align:center;" class=""><label class="">ID<input name="detail-id" class="ml-2" type="checkbox"></label></li>
+                        <li style="margin:auto;text-align:center;" class=""><label class="">Photo<input name="photo" class="ml-2" type="checkbox"></label></li>
+                        <li style="margin:auto;text-align:center;" class=""><label class="">Code<input name="code" class="ml-2" type="checkbox"></label></li>
+                        <li style="margin:auto;text-align:center;" class=""><label class="">Brand<input name="brand" class="ml-2" type="checkbox"></label></li>
+                        <li style="margin:auto;text-align:center;" class=""><label class="">Type<input name="type" class="ml-2" type="checkbox"></label></li>
+                        <li style="margin:auto;text-align:center;" class=""><label class="">Shape<input name="shape" class="ml-2" type="checkbox"></label></li>
+                        <li style="margin:auto;text-align:center;" class=""><label class="">Dimensions<input name="dimensions" class="ml-2" type="checkbox"></label></li>
+                        <li style="margin:auto;text-align:center;" class=""><label class="">Car<input name="car" class="ml-2" type="checkbox"></label></li>
+                        <li style="margin:auto;text-align:center;" class=""><label class="">Check<input name="check" class="ml-2" type="checkbox"></label></li>
+                    </ul>
             </div>
-            <div class="col-8">
+            <div class="col-7">
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-success ml-2" onClick="viewPDF()">View</button>
                     <button class="btn btn-success ml-2" onClick="generatePDF()">PDF</button>
@@ -31,12 +43,15 @@
     <table id="invoice" class="invoice">
         <thead>
             <tr class="trsup color text-white">
-                <th class="trsup color" style="position: sticky;top: 70;">Photo</th>
-                <th class="trsup color" style="position: sticky;top: 70;">Code</th>
-                <th class="trsup color" style="position: sticky;top: 70;">Brand</th>
-                <th class="trsup color" style="position: sticky;top: 70;">Type</th>
-                <th class="trsup color" style="position: sticky;top: 70;">Car</th>
-                <th class="trsup color" style="position: sticky;top: 70;"><input class="check" type="checkbox" onClick="toggle(this,'toDel')"/></th>
+                <th id="detail-id" class="trsup color" style="position: sticky;top: 70;">ID</th>
+                <th id="photo" class="trsup color" style="position: sticky;top: 70;">Photo</th>
+                <th id="code" class="trsup color" style="position: sticky;top: 70;">Code</th>
+                <th id="brand" class="trsup color" style="position: sticky;top: 70;">Brand</th>
+                <th id="type" class="trsup color" style="position: sticky;top: 70;">Type</th>
+                <th id="shape" class="trsup color" style="position: sticky;top: 70;display: none;">Shape</th>
+                <th id="dimensions" class="trsup color" style="position: sticky;top: 70;display: none;">Dimensions</th>
+                <th id="car" class="trsup color" style="position: sticky;top: 70;">Car</th>
+                <th id="check" class="trsup color" style="position: sticky;top: 70;"><input class="check" type="checkbox" onClick="toggle(this,'toDel')"/></th>
             </tr>
         </thead>
         <tbody id="myTable">
@@ -44,11 +59,59 @@
         {% for br in spare %}
         {% if car|add:"0" == br.id|add:"0" %}
         <tr>
+            <td><a href=""></a></div></td>
+            {% if br.spare_photo %}
             <td><a href="{% url 'sparedetails' br.spare_code %}"><div style="background-image: url('/media/{{br.spare_photo}}');" class="photo"></div></a></div></td>
+            {% else %}
+            <td><a href="#"></a></td>
+            {% endif %}
+            {% if br.spare_code %}
             <td><a href="{% url 'sparedetails' br.spare_code %}">{{br.spare_code}}</a></td>
+            {% else %}
+            <td><a href="#"></a></td>
+            {% endif %}
+            {% if br.spare_brand %}
             <td><a href="{% url 'brand' br.spare_brand %}">{{br.spare_brand}}</a></td>
+            {% else %}
+            <td><a href="#"></a></td>
+            {% endif %}
+            {% if br.spare_name %}
             <td><a href="{% url 'name' br.spare_name %}">{{br.spare_name}}</a></td>
+            {% else %}
+            <td><a href="#"></a></td>
+            {% endif %}
+            {% if br.shape %}
+            <td style="display: none;"><a href="">{{br.shape}}</a></td>
+            {% else %}
+            <td style="display: none;"><a href="#"></a></td>
+            {% endif %}
+            {% if br.long or br.wide or br.high or br.diameter or br.radio %}
+            <td style="display: none;">
+                {% if br.long %}
+                    <div><a href="#">Long: {{br.long}}</a></div>
+                {% endif %}
+                {% if br.wide %}
+                    <div><a href="#">Wide: {{br.wide}}</a></div>
+                {% endif %}
+                {% if br.high %}
+                    <div><a href="#">High: {{br.high}}</a></div>
+                {% endif %}
+                {% if br.diameter %}
+                    <div><a href="#">Diameter: {{br.diameter}}</a></div>
+                {% endif %}
+                {% if br.radio %}
+                    <div><a href="#">Radio: {{br.radio}}</a></div>
+                {% endif %}
+            </td>
+            {% else %}
+            <td style="display: none;"><a href="#"></a></td>
+            {% endif %}
+
+            {% if br.car_info.all %}
             <td><a href="{% url 'manuf' br.car_info.all.0.car_manufacturer %}">{{br.car_info.all.0.car_manufacturer}}</a></td>
+            {% else %}
+            <td><a href="#"></a></td>
+            {% endif %}
             <td><input class="check" type="checkbox" name="toDel" value="{{br.id}}"></td>
         </tr>
         {% endif %}

@@ -61,6 +61,7 @@ function generatePDF(){
             var value = $(this).css("position", "sticky");
             $("#check").show();
             $("table td:nth-child("+($("#check").index() + 1)+")").show();
+            $("input:checkbox[name=check]").prop("checked",true);
           });
       });
 }
@@ -93,6 +94,7 @@ function viewPDF(){
             var value = $(this).css("position", "sticky");
             $("#check").show();
             $("table td:nth-child("+($("#check").index() + 1)+")").show();
+            $("input:checkbox[name=check]").prop("checked",true);
           });
       });
 }
@@ -122,9 +124,27 @@ document.getElementById("default").addEventListener("click",function(){
     $("input:checkbox[name=code]").prop("checked",true);
     $("input:checkbox[name=brand]").prop("checked",true);
     $("input:checkbox[name=type]").prop("checked",true);
+    $("input:checkbox[name=shape]").prop("checked",false);
+    $("input:checkbox[name=dimensions]").prop("checked",false);
     $("input:checkbox[name=car]").prop("checked",true);
-    $('#invoice tr').children().show();
-    // $('#invoice tr > *:nth-child(1)').show();
+    $("input:checkbox[name=check]").prop("checked",true);
+
+    $("#photo").show();
+    $("table td:nth-child("+($("#photo").index() + 1)+")").show();
+    $("#code").show();
+    $("table td:nth-child("+($("#code").index() + 1)+")").show();
+    $("#brand").show();
+    $("table td:nth-child("+($("#brand").index() + 1)+")").show();
+    $("#type").show();
+    $("table td:nth-child("+($("#type").index() + 1)+")").show();
+    $("#car").show();
+    $("table td:nth-child("+($("#car").index() + 1)+")").show();
+    $("#check").show();
+    $("table td:nth-child("+($("#check").index() + 1)+")").show();
+    $("#shape").hide();
+    $("table td:nth-child("+($("#shape").index() + 1)+")").hide();
+    $("#dimensions").hide();
+    $("table td:nth-child("+($("#dimensions").index() + 1)+")").hide();
 })
 
 // boton para exportar a Excel -------------------------------------------------------------------------------------
@@ -137,8 +157,8 @@ document.getElementById("downloadexcel").addEventListener("click",function(){
     table2excel.export(document.querySelectorAll("#invoice"));
     // $("#check").show();
     // $("table td:nth-child("+($("#check").index() + 1)+")").show();
-    // $("#photo").show();
-    // $("table td:nth-child("+($("#photo").index() + 1)+")").show();
+    $("input:checkbox[name=check]").prop("checked",false);
+    $("input:checkbox[name=photo]").prop("checked",false);
 })
 
 // Para filtrar por dimensiones -----------------------------------------------------------------------------------
@@ -163,43 +183,6 @@ $spshape.change(function(){
     }
 });
 
-// Table sorteable no necesita exportar archivos --------------------------------------------------------------
-// function sortTableByColumn(table, column, asc = true) {
-//     const dirModifier = asc ? 1 : -1;
-//     const tBody = table.tBodies[0];
-//     const rows = Array.from(tBody.querySelectorAll("tr"));
-
-//     // Sort each row
-//     const sortedRows = rows.sort((a, b) => {
-//         const aColText = a.querySelector(`td:nth-child(${ column + 1 })`).textContent.trim();
-//         const bColText = b.querySelector(`td:nth-child(${ column + 1 })`).textContent.trim();
-
-//         return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
-//     });
-
-//     // Remove all existing TRs from the table
-//     while (tBody.firstChild) {
-//         tBody.removeChild(tBody.firstChild);
-//     }
-
-//     // Re-add the newly sorted rows
-//     tBody.append(...sortedRows);
-
-//     // Remember how the column is currently sorted
-//     table.querySelectorAll("th").forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
-//     table.querySelector(`th:nth-child(${ column + 1})`).classList.toggle("th-sort-asc", asc);
-//     table.querySelector(`th:nth-child(${ column + 1})`).classList.toggle("th-sort-desc", !asc);
-// }
-
-// document.querySelectorAll(".table-sortable th").forEach(headerCell => {
-//     headerCell.addEventListener("click", () => {
-//         const tableElement = headerCell.parentElement.parentElement.parentElement;
-//         const headerIndex = Array.prototype.indexOf.call(headerCell.parentElement.children, headerCell);
-//         const currentIsAscending = headerCell.classList.contains("th-sort-asc");
-
-//         sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
-//     });
-// });
 
 // Para seleccionar la cabecera de la tabla dinamicamente ------------------------------------------------------
 const $HeaderB = $("#dLabel");
@@ -209,7 +192,10 @@ $("input:checkbox[name=photo]").prop("checked",true);
 $("input:checkbox[name=code]").prop("checked",true);
 $("input:checkbox[name=brand]").prop("checked",true);
 $("input:checkbox[name=type]").prop("checked",true);
+$("input:checkbox[name=shape]").prop("checked",false);
+$("input:checkbox[name=dimensions]").prop("checked",false);
 $("input:checkbox[name=car]").prop("checked",true);
+$("input:checkbox[name=check]").prop("checked",true);
 
 $List.change(function(){
     
@@ -218,6 +204,9 @@ $List.change(function(){
     let brandi = $("#brand").index();
     let typei = $("#type").index();
     let cari = $("#car").index();
+    let shapei = $("#shape").index();
+    let dimensionsi = $("#dimensions").index();
+    let checki = $("#check").index();
     
     if ($("input:checkbox[name=photo]:checked").val()){
         $("#photo").show();
@@ -259,9 +248,32 @@ $List.change(function(){
         $("table td:nth-child("+(cari + 1)+")").hide();
     }
 
+    if ($("input:checkbox[name=shape]:checked").val()){
+        $("#shape").show();
+        $("table td:nth-child("+(shapei + 1)+")").show();
+    }else{
+        $("#shape").hide();
+        $("table td:nth-child("+(shapei + 1)+")").hide();
+    }
+
+    if ($("input:checkbox[name=dimensions]:checked").val()){
+        $("#dimensions").show();
+        $("table td:nth-child("+(dimensionsi + 1)+")").show();
+    }else{
+        $("#dimensions").hide();
+        $("table td:nth-child("+(dimensionsi + 1)+")").hide();
+    }
+
+    if ($("input:checkbox[name=check]:checked").val()){
+        $("#check").show();
+        $("table td:nth-child("+(checki + 1)+")").show();
+    }else{
+        $("#check").hide();
+        $("table td:nth-child("+(checki + 1)+")").hide();
+    }
 });
 
-// Otra tabla sorteable ----------------------------------------------------------------------------------
+// Tabla sorteable ----------------------------------------------------------------------------------
 // Se debe agregar CSS th { cursor: pointer; }
 $('th').click(function(){
     var table = $(this).parents('table').eq(0)
@@ -277,3 +289,32 @@ function comparer(index) {
     }
 }
 function getCellValue(row, index){ return $(row).children('td').eq(index).text() }
+
+// Numerar tabla --------------------------------------------------------------------------------------
+// alert("Valor: "+$("#detail-id").index());
+// $("table td:nth-child("+($("#detail-id").index() + 1)+")").text("Hola");
+var i = 1;
+$("tbody tr").each(function(){
+    
+    // alert($(this).index());
+    // if($(this).index()==$("#detail-id").index()){
+    //     // $(this).text("Hola");
+    // }
+    
+    $(this).find("td").each(function(){
+        if($(this).index()==$("#detail-id").index()){
+            $(this).text(i);
+            i=i+1;
+        }
+        
+    })
+});
+
+// $("#brand").children().val()
+// var rows = table.getElementsByTagName('tr');
+// for (var i = 0, len = rows.length; i < len; i++){
+//     rows[i].children[0][text] = i;
+// }
+
+
+// alert($("table td:nth-child("+($("#brand").index() + 1)+")").val());

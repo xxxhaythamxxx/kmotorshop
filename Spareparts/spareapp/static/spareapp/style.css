@@ -114,3 +114,6 @@
 th {
     cursor: pointer;
 }
+.expand-off:hover {
+    background: rgb(216, 114, 114);
+}

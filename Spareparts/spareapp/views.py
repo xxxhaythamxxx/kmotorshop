@@ -60,7 +60,7 @@ def selectf(request):
             valor=request.GET.get("search")
             if valor:
                 # Compara el codigoRepuesto con valor
-                comp=spare.objects.filter(spare_code__icontains=valor).order_by("id").distinct() 
+                comp=spare.objects.filter(spare_code__icontains=valor).order_by("spare_code","spare_brand","spare_name").distinct() 
                 dic.update({"spare":comp,"mig":valor,"parameter":"Spare code"})
                 return render(request,"spareapp/find.html",dic)
             else:
@@ -123,7 +123,7 @@ def brand(request,val):
 def name(request,val):
     if selectf(request)==False:
         # pr=spare.objects.values("id","spare_photo","spare_code","spare_brand","spare_name","car_info__car_manufacturer").filter(spare_name__icontains=val).distinct()
-        pr=spare.objects.filter(spare_name__icontains=val).distinct()
+        pr=spare.objects.filter(spare_name__icontains=val).order_by("spare_code","spare_brand","spare_name").distinct()
         dic.update({"spare":pr,"mig":val,"parameter":"Spare name"})
         return render(request,"spareapp/find.html",dic)
     else:
@@ -176,7 +176,7 @@ def model(request,val):
 def enginel(request,val):
 
     if selectf(request)==False:
-        pr=spare.objects.filter(engine_info__engine_ide__icontains=val)
+        pr=spare.objects.filter(engine_info__engine_ide__icontains=val).order_by("spare_code","spare_brand","spare_name")
         dic.update({"spare":pr,"test":val,"mig":val})
         return render(request,"spareapp/engine.html",dic)
     else:
@@ -185,7 +185,7 @@ def enginel(request,val):
 def detail(request):
 
     if selectf(request)==False:
-        spares = spare.objects.all()
+        spares = spare.objects.all().order_by("spare_code","spare_brand","spare_name")
         carrito = Cart(request)
         dic.update({'carrito': carrito,'spare':spares})
         return render(request, 'spareapp/detail.html', dic)
