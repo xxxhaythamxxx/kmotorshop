@@ -61,7 +61,7 @@ def selectf(request):
             if valor:
                 # Compara el codigoRepuesto con valor
                 comp=spare.objects.filter(spare_code__icontains=valor).order_by("id").distinct() 
-                dic.update({"spare":comp,"mig":valor})
+                dic.update({"spare":comp,"mig":valor,"parameter":"Spare code"})
                 return render(request,"spareapp/find.html",dic)
             else:
                 return False
@@ -113,17 +113,19 @@ def sparedetails(request,val):
 
 def brand(request,val):
     if selectf(request)==False:
-        pr=spare.objects.values("id","spare_photo","spare_code","spare_brand","spare_name","car_info__car_manufacturer").filter(spare_brand__icontains=val).distinct()
-        dic.update({"spare":pr,"mig":val})
-        return render(request,"spareapp/brand.html",dic)
+        # pr=spare.objects.values("id","spare_photo","spare_code","spare_brand","spare_name","car_info__car_manufacturer").filter(spare_brand__icontains=val).distinct()
+        pr=spare.objects.filter(spare_brand__icontains=val).order_by("spare_code","spare_brand","spare_name").distinct()
+        dic.update({"spare":pr,"mig":val,"parameter":"Spare brand"})
+        return render(request,"spareapp/find.html",dic)
     else:
         return selectf(request)
 
 def name(request,val):
     if selectf(request)==False:
-        pr=spare.objects.values("id","spare_photo","spare_code","spare_brand","spare_name","car_info__car_manufacturer").filter(spare_name__icontains=val).distinct()
-        dic.update({"spare":pr,"mig":val})
-        return render(request,"spareapp/name.html",dic)
+        # pr=spare.objects.values("id","spare_photo","spare_code","spare_brand","spare_name","car_info__car_manufacturer").filter(spare_name__icontains=val).distinct()
+        pr=spare.objects.filter(spare_name__icontains=val).distinct()
+        dic.update({"spare":pr,"mig":val,"parameter":"Spare name"})
+        return render(request,"spareapp/find.html",dic)
     else:
         return selectf(request)
 
@@ -147,18 +149,18 @@ def manuf(request,val):
 
 def allmodel(request,val):
     if selectf(request)==False:
-        rep = spare.objects.filter(car_info__car_model__icontains=val).distinct()
-        dic.update({"spare":rep,"mig":val})
-        return render(request,"spareapp/allmodel.html",dic)
+        rep = spare.objects.filter(car_info__car_model__icontains=val).order_by("spare_code","spare_brand","spare_name").distinct()
+        dic.update({"spare":rep,"mig":val,"parameter":"Car model"})
+        return render(request,"spareapp/find.html",dic)
     else:
         return selectf(request)
 
 def allmanu(request,val):
     
     if selectf(request)==False:
-        rep = spare.objects.filter(car_info__car_manufacturer__icontains=val).distinct()
-        dic.update({"spare":rep,"mig":val})
-        return render(request,"spareapp/allmanu.html",dic)
+        rep = spare.objects.filter(car_info__car_manufacturer__icontains=val).order_by("spare_code","spare_brand","spare_name").distinct()
+        dic.update({"spare":rep,"mig":val,"parameter":"Car manufacturer"})
+        return render(request,"spareapp/find.html",dic)
     else:
         return selectf(request)
 
@@ -166,7 +168,7 @@ def model(request,val):
 
     if selectf(request)==False:
         pr=engine.objects.filter(car_engine_info__car_model__icontains=val)
-        dic.update({"engine":pr,"mig":val})
+        dic.update({"engine":pr,"mig":val,"parameter":"Car model"})
         return render(request,"spareapp/model.html",dic)
     else:
         return selectf(request)
