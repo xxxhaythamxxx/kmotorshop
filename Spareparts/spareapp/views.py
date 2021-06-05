@@ -1,3 +1,4 @@
+from typing import List
 from django.shortcuts import get_object_or_404, redirect, render, HttpResponse, HttpResponseRedirect
 from .models import *
 from django.views import View
@@ -60,8 +61,22 @@ def selectf(request):
             valor=request.GET.get("search")
             if valor:
                 # Compara el codigoRepuesto con valor
+                b=[]
                 comp=spare.objects.filter(spare_code__icontains=valor).order_by("spare_code","spare_brand","spare_name").distinct() 
-                dic.update({"spare":comp,"mig":valor,"parameter":"Spare code"})
+                todos=spare.objects.all()
+                for t in todos:
+                    s=t.spare_code
+                    if t.spare_reference.all():
+                        for f in t.spare_reference.all():
+                            g=f.reference_code
+                            put = g.translate(str.maketrans('', '', '.''-'))
+                            if valor in put:
+                                b.append(t)
+                    out = s.translate(str.maketrans('', '', '.''-'))
+                    if valor in out:
+                        b.append(t)
+                b = (set(b))
+                dic.update({"spare":b,"mig":valor,"parameter":"Spare code"})
                 return render(request,"spareapp/find.html",dic)
             else:
                 return False
@@ -104,8 +119,9 @@ def find(request):
 def sparedetails(request,val):
 
     if selectf(request)==False:
-        pr=spare.objects.filter(spare_code=val)
-        dic.update({"spare":pr})
+        pr=spare.objects.filter(spare_code=val).order_by("spare_code","spare_brand","spare_name")
+        ar=spare.objects.values("spare_code","car_info__car_manufacturer","spare_reference__reference_code").filter(spare_code=val).distinct()
+        dic.update({"spare":pr,"spareReference":ar})
         return render(request,"spareapp/sparedetails.html",dic)
     else:
         return selectf(request)

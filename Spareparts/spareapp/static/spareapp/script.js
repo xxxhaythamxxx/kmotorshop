@@ -290,16 +290,10 @@ function comparer(index) {
 }
 function getCellValue(row, index){ return $(row).children('td').eq(index).text() }
 
-// Numerar tabla --------------------------------------------------------------------------------------
-// alert("Valor: "+$("#detail-id").index());
-// $("table td:nth-child("+($("#detail-id").index() + 1)+")").text("Hola");
+// Enumerar tabla de carrito --------------------------------------------------------------------------------------
+
 var i = 1;
 $("tbody tr").each(function(){
-    
-    // alert($(this).index());
-    // if($(this).index()==$("#detail-id").index()){
-    //     // $(this).text("Hola");
-    // }
     
     $(this).find("td").each(function(){
         if($(this).index()==$("#detail-id").index()){
@@ -309,12 +303,3 @@ $("tbody tr").each(function(){
         
     })
 });
-
-// $("#brand").children().val()
-// var rows = table.getElementsByTagName('tr');
-// for (var i = 0, len = rows.length; i < len; i++){
-//     rows[i].children[0][text] = i;
-// }
-
-
-// alert($("table td:nth-child("+($("#brand").index() + 1)+")").val());

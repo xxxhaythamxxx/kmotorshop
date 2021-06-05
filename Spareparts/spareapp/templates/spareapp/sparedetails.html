@@ -14,13 +14,95 @@
             <div style="background-image: url('/media/{{spare.0.spare_photo}}');"" class="mimage"></div>
         </div>
         <div class="conteni col-6">
-            <div class="color p-1 text-white mt-2 radius" for="">Code</div>
-            <div class="hover"><a href="">{{spare.0.spare_code}}</a></div>
-            <div class="color p-1 text-white mt-2 radius" for="">Brand</div>
-            <div class="hover"><a href="{% url 'brand' spare.0.spare_brand %}">{{spare.0.spare_brand}}</a></div>
-            <div class="color p-1 text-white mt-2 radius" for="">Name</div>
-            <div class="hover"><a href="{% url 'name' spare.0.spare_name %}">{{spare.0.spare_name}}</a></div>
+            <div class="color p-1 text-white mt-2 radius mb-2" for="">Especification</div>
+            <div class="row">
+                <div class="col-4">
+                    {% if spare.0.spare_code %}
+                    <div>Code</div>
+                    {% endif %}
+                    {% if spare.0.spare_brand %}
+                    <div>Brand</div>
+                    {% endif %}
+                    {% if spare.0.spare_name %}
+                    <div>Type</div>
+                    {% endif %}
+                    {% if spare.0.shape %}
+                    <div>Shape</div>
+                    {% endif %}
+                    {% if spare.0.long %}
+                    <div>Length</div>
+                    {% endif %}
+                    {% if spare.0.wide %}
+                    <div>Width</div>
+                    {% endif %}
+                    {% if spare.0.high %}
+                    <div>Height</div>
+                    {% endif %}
+                    {% if spare.0.diameter %}
+                    <div>Diameter</div>
+                    {% endif %}
+                    {% if spare.0.radio %}
+                    <div>Radio</div>
+                    {% endif %}
+                </div>
+                <div class="col-6">
+                    {% if spare.0.spare_code %}
+                    <div class="hover"><a href="">{{spare.0.spare_code}}</a></div>
+                    {% endif %}
+                    {% if spare.0.spare_brand %}
+                    <div class="hover"><a href="{% url 'brand' spare.0.spare_brand %}">{{spare.0.spare_brand}}</a></div>
+                    {% endif %}
+                    {% if spare.0.spare_name %}
+                    <div class="hover"><a href="{% url 'name' spare.0.spare_name %}">{{spare.0.spare_name}}</a></div>
+                    {% endif %}
+                    {% if spare.0.shape %}
+                    <div class="hover"><a href="">{{spare.0.shape}}</a></div>
+                    {% endif %}
+                    {% if spare.0.long %}
+                    <div class="hover"><a href="">{{spare.0.long}}</a></div>
+                    {% endif %}
+                    {% if spare.0.wide %}
+                    <div class="hover"><a href="">{{spare.0.wide}}</a></div>
+                    {% endif %}
+                    {% if spare.0.high %}
+                    <div class="hover"><a href="">{{spare.0.high}}</a></div>
+                    {% endif %}
+                    {% if spare.0.diameter %}
+                    <div class="hover"><a href="">{{spare.0.diameter}}</a></div>
+                    {% endif %}
+                    {% if spare.0.radio %}
+                    <div class="hover"><a href="">{{spare.0.radio}}</a></div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="color p-1 text-white mt-2 radius mb-2" for="">Reference codes</div>
+            <div class="row">
+                {% if spare.0.spare_reference.all %}
+                {% for sp in spare.0.spare_reference.all %}
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col">
+                            <div class="hover"><a href="">{{sp}}</a></div>
+                        </div>                       
+                    </div>
+                </div>
+                {% endfor %}
+                    <!-- {% for sp in spareReference %}
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-4">
+                                {{sp.car_info__car_manufacturer}}
+                            </div>
+                            <div class="col-6">
+                                <div class="hover"><a href="">{{sp.spare_reference__reference_code}}</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %} -->
+                {% endif %}
+            </div>
         </div>
+
         <div class="col-12">
         <!-- Si está ligado a un carro -->
         {% if spare.0.car_info.all %}
