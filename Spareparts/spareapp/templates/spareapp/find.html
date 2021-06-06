@@ -11,7 +11,7 @@
 <form class="" method="POST" action="">
     {% include "spareapp/add.html" %}
     {% csrf_token %}
-<table id="invoice" class="invoice  table-striped table-sortable">
+<table id="invoice" class="invoice table-striped table-sortable">
     <thead class="">
         <tr class="color text-white">
             <th id="photo" class="trsup color" style="position: sticky;top: 70;">Photo</th>
@@ -20,6 +20,7 @@
             <th id="type" class="trsup color" style="position: sticky;top: 70;">Type</th>
             <th id="shape" class="trsup color" style="position: sticky;top: 70;display: none;">Shape</th>
             <th id="dimensions" class="trsup color" style="position: sticky;top: 70;display: none;">Dimensions</th>
+            <th id="reference" class="trsup color" style="position: sticky;top: 70;display: none;">Reference Code</th>
             <th id="car" class="trsup color" style="position: sticky;top: 70;">Car</th>
             <th id="check" class="trsup color" style="position: sticky;top: 70;"><input class="check" type="checkbox" onClick="toggle(this,'toAdd')"/></th>
         </tr>
@@ -74,6 +75,26 @@
             <td style="display: none;"><a href="#"></a></td>
             {% endif %}
 
+            {% if br.spare_reference.all %}
+            <td style="display: none;">
+                    {% for car in onlyManufCars %}
+                        {% for sp in br.spare_reference.all %}
+                            {% if sp.reference_car.car_manufacturer == car.car_manufacturer %}
+                            <div><a href="{% url 'sparedetails' br.spare_code %}">{{sp.reference_code}}</a></div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </td>
+                {% else %}
+                <td style="display: none;"><a href="#"></a></td>
+                {% endif %}
+
+            <!-- {% if br.shape %}
+            <td style="display: none;"><a href="">ABCDRRR</a></td>
+            {% else %}
+            <td style="display: none;"><a href="#"></a></td>
+            {% endif %} -->
+
             {% if br.car_info.all %}
             <td><a href="{% url 'manuf' br.car_info.all.0.car_manufacturer %}">{{br.car_info.all.0.car_manufacturer}}</a></td>
             {% else %}
@@ -86,8 +107,6 @@
 </table>
 </form>
 </div>
-
-
 {% endblock %}
 
 

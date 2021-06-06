@@ -1,10 +1,28 @@
+.color-soft {
+    background: rgb(216, 114, 114);
+}
 .color {
     background: rgb(136,12,12);
     background: linear-gradient(0deg, rgba(136,12,12,1) 0%, rgba(196,18,18,1) 83%);
 }
-.color-soft {
+.card-head {
     background: rgb(216, 114, 114);
 }
+.card-head a:hover {
+    color:white;
+}
+.card-head:hover {
+    background: rgb(136,12,12);
+    background: linear-gradient(0deg, rgba(136,12,12,1) 0%, rgba(196,18,18,1) 83%);
+    color:white;
+}
+.card-head-a {
+    color:rgb(136,12,12);
+}
+.card-head-a:hover {
+    color:white;
+}
+
 .dropdown-menu {
     background: rgb(216, 114, 114);
 }

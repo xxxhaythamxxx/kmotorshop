@@ -14,7 +14,7 @@ def same():
     # Consigo TODOS los motores
     allEngines=engine.objects.all()
     # Conseguir TODOS los carros por fabricante
-    onlyManufCars=car.objects.all().values("car_manufacturer").distinct()
+    onlyManufCars=car.objects.all().values("car_manufacturer").order_by("car_manufacturer").distinct()
     # Conseguir TODOS los carros
     allCars=car.objects.all()
     # Conseguir TODOS los repuestos por nombre

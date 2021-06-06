@@ -35,9 +35,10 @@ class category(models.Model):
 
 class reference(models.Model):
     reference_code=models.CharField(max_length=80, verbose_name="Code",blank=True,null=True)     #Ejemplo: 45646546ad
+    reference_car = models.ForeignKey(car,on_delete=CASCADE,blank=True,null=True)               
 
     def __str__(self):
-        return '%s' %(self.reference_code)
+        return '%s - %s' %(self.reference_code, self.reference_car)
 
 class spare(models.Model):
     car_info=models.ManyToManyField(car,blank=True,null=True)

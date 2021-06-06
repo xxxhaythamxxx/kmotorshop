@@ -188,17 +188,20 @@ $spshape.change(function(){
 const $HeaderB = $("#dLabel");
 const $List = $("#headerList");
 const $cab = 5;
+$("input:checkbox[name=detail-id]").prop("checked",true);
 $("input:checkbox[name=photo]").prop("checked",true);
 $("input:checkbox[name=code]").prop("checked",true);
 $("input:checkbox[name=brand]").prop("checked",true);
 $("input:checkbox[name=type]").prop("checked",true);
 $("input:checkbox[name=shape]").prop("checked",false);
 $("input:checkbox[name=dimensions]").prop("checked",false);
+$("input:checkbox[name=reference]").prop("checked",false);
 $("input:checkbox[name=car]").prop("checked",true);
 $("input:checkbox[name=check]").prop("checked",true);
 
 $List.change(function(){
     
+    let detailidi = $("#detail-id").index();
     let photoi = $("#photo").index();
     let codei = $("#code").index();
     let brandi = $("#brand").index();
@@ -206,8 +209,17 @@ $List.change(function(){
     let cari = $("#car").index();
     let shapei = $("#shape").index();
     let dimensionsi = $("#dimensions").index();
+    let referencei = $("#reference").index();
     let checki = $("#check").index();
     
+    if ($("input:checkbox[name=detail-id]:checked").val()){
+        $("#detail-id").show();
+        $("table td:nth-child("+(detailidi + 1)+")").show();
+    }else{
+        $("#detail-id").hide();
+        $("table td:nth-child("+(detailidi + 1)+")").hide();
+    }
+
     if ($("input:checkbox[name=photo]:checked").val()){
         $("#photo").show();
         $("table td:nth-child("+(photoi + 1)+")").show();
@@ -271,6 +283,14 @@ $List.change(function(){
         $("#check").hide();
         $("table td:nth-child("+(checki + 1)+")").hide();
     }
+
+    if ($("input:checkbox[name=reference]:checked").val()){
+        $("#reference").show();
+        $("table td:nth-child("+(referencei + 1)+")").show();
+    }else{
+        $("#reference").hide();
+        $("table td:nth-child("+(referencei + 1)+")").hide();
+    }
 });
 
 // Tabla sorteable ----------------------------------------------------------------------------------
@@ -293,8 +313,11 @@ function getCellValue(row, index){ return $(row).children('td').eq(index).text()
 // Enumerar tabla de carrito --------------------------------------------------------------------------------------
 
 var i = 1;
+// var j = 1;
 $("tbody tr").each(function(){
     
+    // $(this).attr("id",j);
+    // j=j+1;
     $(this).find("td").each(function(){
         if($(this).index()==$("#detail-id").index()){
             $(this).text(i);
