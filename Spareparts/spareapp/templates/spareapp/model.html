@@ -25,12 +25,12 @@
     <tbody id="myTable table-list">
         {% for br in engine %}
         <tr class="">
-            <td><a href="">{{br.engine_l}}</a></td>
+            <td>{{br.engine_l}}</td>
             <td><a href="{% url 'engine' br.engine_ide %}">{{br.engine_ide}}</a></td>
-            <td><a href="">{{br.engine_type}}</a></td>
-            <td><a href="">{{br.engine_cylinder}} ccm</a></td>
-            <td><a href="">{{br.engine_pistons}}</a></td>
-            <td><a href="">{{br.engine_power_kw}}Kw / {{br.engine_power_hp}}hp</a></td>
+            <td>{{br.engine_type}}</td>
+            <td>{{br.engine_cylinder}} ccm</td>
+            <td>{{br.engine_pistons}}</td>
+            <td>{{br.engine_power_kw}}Kw / {{br.engine_power_hp}}hp</td>
         </tr>
         {% endfor %}
     </tbody>

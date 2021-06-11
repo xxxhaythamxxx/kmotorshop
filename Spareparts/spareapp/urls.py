@@ -17,7 +17,6 @@ urlpatterns = [
     path("model/<str:val>",views.model,name="model"),
     path("engine/<str:val>",views.enginel,name="engine"),
     path('detail',views.detail,name='detail'),
-    path('dimensions',views.dimensions,name='dimensions'),
     path("shape/<str:val>",views.shape,name="shape"),
     path("longi/<str:val>",views.longi,name="longi"),
     path("widei/<str:val>",views.widei,name="widei"),

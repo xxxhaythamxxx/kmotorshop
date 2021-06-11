@@ -16,6 +16,9 @@
         <tr class="color text-white">
             <th id="photo" class="trsup color" style="position: sticky;top: 70;">Photo</th>
             <th id="code" class="trsup color" style="position: sticky;top: 70;">Code</th>
+            {% if parameter == 'Engine code' %}
+            <th id="ecode" class="trsup color" style="position: sticky;top: 70;">Engine code</th>
+            {% endif %}
             <th id="brand" class="trsup color" style="position: sticky;top: 70;">Brand</th>
             <th id="type" class="trsup color" style="position: sticky;top: 70;">Type</th>
             <th id="shape" class="trsup color" style="position: sticky;top: 70;display: none;">Shape</th>
@@ -38,6 +41,11 @@
             {% else %}
             <td><a href="#"></a></td>
             {% endif %}
+
+            {% if parameter == 'Engine code' %}
+            <td><a href="#">{{mig}}</a></td>
+            {% endif %}
+
             {% if br.spare_brand %}
             <td><a href="{% url 'brand' br.spare_brand %}">{{br.spare_brand}}</a></td>
             {% else %}
@@ -49,26 +57,26 @@
             <td><a href="#"></a></td>
             {% endif %}
             {% if br.shape %}
-            <td style="display: none;"><a href="">{{br.shape}}</a></td>
+            <td style="display: none;"><a href="{% url 'shape' br.shape %}">{{br.shape}}</a></td>
             {% else %}
             <td style="display: none;"><a href="#"></a></td>
             {% endif %}
             {% if br.long or br.wide or br.high or br.diameter or br.radio %}
             <td style="display: none;">
                 {% if br.long %}
-                    <div><a href="#">Long: {{br.long}}</a></div>
+                    <div><a href="{% url 'longi' br.long %}">Long: {{br.long}}</a></div>
                 {% endif %}
                 {% if br.wide %}
-                    <div><a href="#">Wide: {{br.wide}}</a></div>
+                    <div><a href="{% url 'widei' br.wide %}">Wide: {{br.wide}}</a></div>
                 {% endif %}
                 {% if br.high %}
-                    <div><a href="#">High: {{br.high}}</a></div>
+                    <div><a href="{% url 'highi' br.high %}">High: {{br.high}}</a></div>
                 {% endif %}
                 {% if br.diameter %}
-                    <div><a href="#">Diameter: {{br.diameter}}</a></div>
+                    <div><a href="{% url 'diameteri' br.diameter %}">Diameter: {{br.diameter}}</a></div>
                 {% endif %}
                 {% if br.radio %}
-                    <div><a href="#">Radio: {{br.radio}}</a></div>
+                    <div><a href="{% url 'radioi' br.radio %}">Radio: {{br.radio}}</a></div>
                 {% endif %}
             </td>
             {% else %}

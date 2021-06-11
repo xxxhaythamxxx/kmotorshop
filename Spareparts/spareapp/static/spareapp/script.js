@@ -129,6 +129,7 @@ document.getElementById("default").addEventListener("click",function(){
     $("input:checkbox[name=car]").prop("checked",true);
     $("input:checkbox[name=check]").prop("checked",true);
     $("input:checkbox[name=reference]").prop("checked",false);
+    $("input:checkbox[name=ecode]").prop("checked",true);
 
     $("#photo").show();
     $("table td:nth-child("+($("#photo").index() + 1)+")").show();
@@ -148,6 +149,8 @@ document.getElementById("default").addEventListener("click",function(){
     $("table td:nth-child("+($("#dimensions").index() + 1)+")").hide();
     $("#reference").hide();
     $("table td:nth-child("+($("#reference").index() + 1)+")").hide();
+    $("#ecode").show();
+    $("table td:nth-child("+($("#ecode").index() + 1)+")").show();
 })
 
 // boton para exportar a Excel -------------------------------------------------------------------------------------
@@ -201,6 +204,7 @@ $("input:checkbox[name=dimensions]").prop("checked",false);
 $("input:checkbox[name=reference]").prop("checked",false);
 $("input:checkbox[name=car]").prop("checked",true);
 $("input:checkbox[name=check]").prop("checked",true);
+$("input:checkbox[name=ecode]").prop("checked",true);
 
 $List.change(function(){
     
@@ -214,6 +218,7 @@ $List.change(function(){
     let dimensionsi = $("#dimensions").index();
     let referencei = $("#reference").index();
     let checki = $("#check").index();
+    let ecodei = $("#ecode").index();
     
     if ($("input:checkbox[name=detail-id]:checked").val()){
         $("#detail-id").show();
@@ -293,6 +298,14 @@ $List.change(function(){
     }else{
         $("#reference").hide();
         $("table td:nth-child("+(referencei + 1)+")").hide();
+    }
+
+    if ($("input:checkbox[name=ecode]:checked").val()){
+        $("#ecode").show();
+        $("table td:nth-child("+(ecodei + 1)+")").show();
+    }else{
+        $("#ecode").hide();
+        $("table td:nth-child("+(ecodei + 1)+")").hide();
     }
 });
 

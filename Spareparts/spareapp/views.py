@@ -193,8 +193,8 @@ def enginel(request,val):
 
     if selectf(request)==False:
         pr=spare.objects.filter(engine_info__engine_ide__icontains=val).order_by("spare_code","spare_brand","spare_name")
-        dic.update({"spare":pr,"test":val,"mig":val})
-        return render(request,"spareapp/engine.html",dic)
+        dic.update({"spare":pr,"parameter":"Engine code","mig":val})
+        return render(request,"spareapp/find.html",dic)
     else:
         return selectf(request)
 
@@ -205,19 +205,6 @@ def detail(request):
         carrito = Cart(request)
         dic.update({'carrito': carrito,'spare':spares})
         return render(request, 'spareapp/detail.html', dic)
-    else:
-        return selectf(request)
-
-def dimensions(request):
-    if selectf(request)==False:
-        # Todos los nombres de repuestos sin repetir siempre que tengan atributo Shape
-        pr=spare.objects.all().filter(shape__isnull=False).values("spare_name").distinct().order_by("spare_name")
-        # Todos los nombres y formas de los repuestos
-        sh=spare.objects.all().values("shape","spare_name").distinct().order_by("shape")
-        # Todas las formas y medidas de los repuestos
-        md=spare.objects.all().values("shape","long","high","wide","diameter","radio").distinct().order_by("shape")
-        dic.update({"spare":pr,"allShapes":sh,"allDimensions":md})
-        return render(request,"spareapp/dimensions.html",dic)
     else:
         return selectf(request)
 
