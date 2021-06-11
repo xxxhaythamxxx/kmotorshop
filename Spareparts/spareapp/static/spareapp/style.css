@@ -70,7 +70,7 @@
     text-align: center;
 }
 .photo {
-    background-size: cover;
+    background-size: 80px 80px;
     background-repeat: no-repeat;
     background-position: center center;
     width: 80px;
@@ -78,7 +78,7 @@
     margin: auto;
 }
 .mimage {
-    background-size: cover;
+    background-size: 300px 300px;
     background-repeat: no-repeat;
     background-position: center center;
     width: 300px;
