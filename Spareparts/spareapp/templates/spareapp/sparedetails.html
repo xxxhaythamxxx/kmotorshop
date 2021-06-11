@@ -57,22 +57,22 @@
                     <div class="hover"><a href="{% url 'name' spare.0.spare_name %}">{{spare.0.spare_name}}</a></div>
                     {% endif %}
                     {% if spare.0.shape %}
-                    <div class="hover"><a href="#">{{spare.0.shape}}</a></div>
+                    <div class="hover"><a href="{% url 'shape' spare.0.shape %}">{{spare.0.shape}}</a></div>
                     {% endif %}
                     {% if spare.0.long %}
-                    <div class="hover"><a href="#">{{spare.0.long}}</a></div>
+                    <div class="hover"><a href="{% url 'longi' spare.0.long %}">{{spare.0.long}}</a></div>
                     {% endif %}
                     {% if spare.0.wide %}
-                    <div class="hover"><a href="#">{{spare.0.wide}}</a></div>
+                    <div class="hover"><a href="{% url 'widei' spare.0.wide %}">{{spare.0.wide}}</a></div>
                     {% endif %}
                     {% if spare.0.high %}
-                    <div class="hover"><a href="#">{{spare.0.high}}</a></div>
+                    <div class="hover"><a href="{% url 'highi' spare.0.high %}">{{spare.0.high}}</a></div>
                     {% endif %}
                     {% if spare.0.diameter %}
-                    <div class="hover"><a href="#">{{spare.0.diameter}}</a></div>
+                    <div class="hover"><a href="{% url 'diameteri' spare.0.diameter %}">{{spare.0.diameter}}</a></div>
                     {% endif %}
                     {% if spare.0.radio %}
-                    <div class="hover"><a href="#">{{spare.0.radio}}</a></div>
+                    <div class="hover"><a href="{% url 'radioi' spare.0.radio %}">{{spare.0.radio}}</a></div>
                     {% endif %}
                 </div>
             </div>

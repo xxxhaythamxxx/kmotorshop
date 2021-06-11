@@ -128,6 +128,7 @@ document.getElementById("default").addEventListener("click",function(){
     $("input:checkbox[name=dimensions]").prop("checked",false);
     $("input:checkbox[name=car]").prop("checked",true);
     $("input:checkbox[name=check]").prop("checked",true);
+    $("input:checkbox[name=reference]").prop("checked",false);
 
     $("#photo").show();
     $("table td:nth-child("+($("#photo").index() + 1)+")").show();
@@ -145,6 +146,8 @@ document.getElementById("default").addEventListener("click",function(){
     $("table td:nth-child("+($("#shape").index() + 1)+")").hide();
     $("#dimensions").hide();
     $("table td:nth-child("+($("#dimensions").index() + 1)+")").hide();
+    $("#reference").hide();
+    $("table td:nth-child("+($("#reference").index() + 1)+")").hide();
 })
 
 // boton para exportar a Excel -------------------------------------------------------------------------------------
@@ -295,7 +298,7 @@ $List.change(function(){
 
 // Tabla sorteable ----------------------------------------------------------------------------------
 // Se debe agregar CSS th { cursor: pointer; }
-$('th').click(function(){
+$('th').not("#check").click(function(){
     var table = $(this).parents('table').eq(0)
     var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()))
     this.asc = !this.asc

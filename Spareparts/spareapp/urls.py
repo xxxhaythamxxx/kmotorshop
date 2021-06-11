@@ -18,7 +18,13 @@ urlpatterns = [
     path("engine/<str:val>",views.enginel,name="engine"),
     path('detail',views.detail,name='detail'),
     path('dimensions',views.dimensions,name='dimensions'),
-
+    path("shape/<str:val>",views.shape,name="shape"),
+    path("longi/<str:val>",views.longi,name="longi"),
+    path("widei/<str:val>",views.widei,name="widei"),
+    path("highi/<str:val>",views.highi,name="highi"),
+    path("diameteri/<str:val>",views.diameteri,name="diameteri"),
+    path("radioi/<str:val>",views.radioi,name="radioi"),
+    # path("cilinder/<str:val>",views.cilinder,name="cilinder"),
 ]
 
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

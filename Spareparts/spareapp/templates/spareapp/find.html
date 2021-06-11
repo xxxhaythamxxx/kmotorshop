@@ -89,12 +89,6 @@
                 <td style="display: none;"><a href="#"></a></td>
                 {% endif %}
 
-            <!-- {% if br.shape %}
-            <td style="display: none;"><a href="">ABCDRRR</a></td>
-            {% else %}
-            <td style="display: none;"><a href="#"></a></td>
-            {% endif %} -->
-
             {% if br.car_info.all %}
             <td><a href="{% url 'manuf' br.car_info.all.0.car_manufacturer %}">{{br.car_info.all.0.car_manufacturer}}</a></td>
             {% else %}
