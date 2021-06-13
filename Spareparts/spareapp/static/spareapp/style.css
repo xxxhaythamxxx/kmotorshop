@@ -19,7 +19,10 @@
 .card-head-a {
     color:rgb(136,12,12);
 }
-.card-head-a:hover {
+.card-head-a a {
+    color:white;
+}
+.card-head-a a:hover {
     color:white;
 }
 

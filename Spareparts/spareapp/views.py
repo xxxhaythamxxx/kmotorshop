@@ -70,10 +70,10 @@ def selectf(request):
                         for f in t.spare_reference.all():
                             g=f.reference_code
                             put = g.translate(str.maketrans('', '', '.''-'))
-                            if valor in put:
+                            if valor.upper() in put.upper():
                                 b.append(t)
                     out = s.translate(str.maketrans('', '', '.''-'))
-                    if valor in out:
+                    if valor.upper() in out.upper():
                         b.append(t)
                 b = (set(b))
                 dic.update({"spare":b,"mig":valor,"parameter":"Spare code"})
